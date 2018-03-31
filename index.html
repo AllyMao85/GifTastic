@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GifTastic</title>
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <div class="container">
+    
+    <div id="btnGroup"></div>
+
+    <!-- This form will be where users input data about the movies -->
+    <form id="animal-form">
+      <label for="animal-input">Add an animal</label><br>
+      <input type="text" id="animal-input"><br><br>
+
+      <!-- This button will trigger our AJAX call -->
+      <input id="addBtn" type="submit" value="Submit">
+    </form>
+
+    <div id="content"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    var topics=["dog","cat","rabbit","hamster","skunk","goldfish"];
+      function listBtn() {
+        $('#btnGroup').empty();
+        for (var i=0; i<topics.length;i++) {
+             var btnName=$('<button>').attr({
+                 id:topics[i],
+                 value: topics[i],
+                 class: "btnList"
+             });
+             btnName.text(topics[i]);
+             $("#btnGroup").append(btnName);
+        }
+
+      } 
+
+      $("#addBtn").on("click", function(event) {
+        // Preventing the button from trying to submit the form
+        event.preventDefault();
+        var animal = $("#animal-input").val().trim();
+        console.log(animal);
+        topics.push(animal);
+        console.log(topics);
+        listBtn();
+        
+      })
+
+        listBtn();
+      // This .on("click") function will trigger the AJAX Call
+      $("#btnGroup").on("click", 'button[class=btnList]', function(event) {
+
+        // event.preventDefault() can be used to prevent an event's default behavior.
+        // Here, it prevents the submit button from trying to submit a form when clicked
+        event.preventDefault();
+
+        // Here we grab the text from the input box
+        var animalBtn = $(this).attr("value");
+
+        // Here we construct our URL
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=YjKm2LCQbRa7vCx1qYsBiORB5uWabGrH&q="+animalBtn+"&limit=25&offset=0&rating=G&lang=en";
+
+        // Write code between the dashes below to hit the queryURL with $ajax, then take the response data
+        // and display it in the div with an id of movie-view
+
+        //------YOUR CODE GOES IN THESE DASHES. DO NOT MANUALLY EDIT THE HTML ABOVE.
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
+         // $("#content").text(JSON.stringify(response));
+          var results = response.data;
+
+          for (var i = 0; i < 10; i++) {
+            var gifDiv = $("<div class='item'>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var animalImage = $("<img>");
+            animalImage.attr({
+                "src": results[i].images.fixed_height_still.url,
+                "data-state":"still",
+                "data-still":results[i].images.fixed_height_still.url,
+                "data-animate":results[i].images.fixed_height.url,
+                class:"imggif"
+            });
+
+            //animalImage.attr("src", results[i].embed_url);
+            //animalImage.attr("src", results[i].images.original_still.url);
+            gifDiv.append(p);
+            gifDiv.append(animalImage);
+
+            $("#content").prepend(gifDiv);
+          }
+        });
+        // -----------------------------------------------------------------------
+    });
+
+    $('#content').on("click",'img[class=imggif]', function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+   });
+      
+    </script>
+  </div>
+</body>
+
+</html>

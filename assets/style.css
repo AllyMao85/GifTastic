@@ -1,0 +1,38 @@
+
+
+
+#animal-form {
+    float:right;
+}
+
+
+.btnList {
+    margin: 5px 8px;
+    border-radius: 5px;
+    background-color: darkcyan;
+    color: white;
+}
+
+#addBtn {
+    margin: 5px 8px;
+    border-radius: 5px;
+    background-color: darkcyan;
+    color: white;
+}
+
+#content {
+    width: 80%;
+}
+
+.item {
+    float: left;
+    margin: 10px 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    #animal-form {
+        float:left;
+        margin-left:20px;
+        margin-top: 10px;
+    }
+}
