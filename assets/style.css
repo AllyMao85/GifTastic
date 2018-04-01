@@ -3,11 +3,14 @@
 
 #animal-form {
     float:right;
+    /* width: 20%; */
+}
+#animal-input {
+    border-radius: 5px;
 }
 
-
 .btnList {
-    margin: 5px 8px;
+    margin: 10px 8px;
     border-radius: 5px;
     background-color: darkcyan;
     color: white;
@@ -20,14 +23,65 @@
     color: white;
 }
 
-#content {
-    width: 80%;
+.downloadGif {
+    /* position:absolute; */
+    display:block;
+    margin: 5px 8px;    
+    border-radius: 5px;
+    background-color: rebeccapurple;
+    color: white;
+/* 
+    bottom: -40px;
+    left: 0;
+    Z-index:1; */
 }
 
+.product-favorite {
+    position:absolute;
+    background-color: transparent;
+    border: 0;
+
+    bottom: 5px;
+    right: 0px;
+    Z-index:1;
+    
+}
+
+#content {
+    width: 80%;
+    display: block;
+}
+#favorites {
+    width: 80%;
+    min-height: 100px;
+    /* height: auto; */
+    /* min-height: 100px;
+    height: auto; */
+    /* float: right; */
+    /* border: 1px solid lightgrey; */
+    border-radius:5px;
+    overflow:auto;
+   
+    /* clear:right; */
+    background-color:lightblue;
+}
+#favorites.item {
+    border: 1px solid red;
+}
+
+
+ h5 {
+     margin-left: 10px;
+ }
+
 .item {
+    position:relative;
     float: left;
     margin: 10px 20px;
+    z-index:2;
 }
+
+
 
 @media only screen and (max-width: 600px) {
     #animal-form {
