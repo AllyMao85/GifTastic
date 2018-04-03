@@ -40,15 +40,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
     var topics=["dog","cat","rabbit","hamster","skunk","goldfish"];
+    //var btns='"dog","cat","rabbit","hamster","skunk","goldfish"';
+    //var newtopics=[];
+    //window.localStorage.setItem("btns",topics);
+    console.log(localStorage.getItem("btns"));
+    if (localStorage.getItem("btns")) {
+        var newtopics=localStorage.getItem("btns").split(",");
+        console.log(newtopics);
+    } else {
+        var newtopics=topics;
+        
+    }
       function listBtn() {
         $('#btnGroup').empty();
-        for (var i=0; i<topics.length;i++) {
+         
+        for (var i=0; i<newtopics.length;i++) {
              var btnName=$('<button>').attr({
-                 id:topics[i],
-                 value: topics[i],
+                 id:newtopics[i],
+                 value: newtopics[i],
                  class: "btnList"
              });
-             btnName.text(topics[i]);
+             btnName.text(newtopics[i]);
              $("#btnGroup").append(btnName);
         }
 
@@ -58,11 +70,19 @@
         // Preventing the button from trying to submit the form
         event.preventDefault();
         var animal = $("#animal-input").val().trim();
-        console.log(animal);
-        topics.push(animal);
-        console.log(topics);
-        listBtn();
+        //newtopics=localStorage.getItem("btns").split(",");
+        newtopics.push(animal);
         
+      // Clear absolutely everything stored in localStorage using localStorage.clear()
+        localStorage.clear();
+        //newtopics=localStorage.getItem("btns").split(",");
+      // Store the username into localStorage using "localStorage.setItem"
+        localStorage.setItem("btns", newtopics);
+        //newtopics=localStorage.getItem("btns").split(",");
+        console.log(newtopics);
+        console.log(localStorage.getItem("btns"));
+        //console.log(topics);
+        listBtn();
       })
 
         listBtn();
