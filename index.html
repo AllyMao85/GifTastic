@@ -74,7 +74,7 @@
         newtopics.push(animal);
         
       // Clear absolutely everything stored in localStorage using localStorage.clear()
-        localStorage.clear();
+        //localStorage.clear();
         //newtopics=localStorage.getItem("btns").split(",");
       // Store the username into localStorage using "localStorage.setItem"
         localStorage.setItem("btns", newtopics);
@@ -204,7 +204,7 @@
         //console.log(divId);
         //console.log(idArray);
 // Clear absolutely everything stored in localStorage using localStorage.clear()
-        localStorage.clear();
+        //localStorage.clear();
 
 // Store the username into localStorage using "localStorage.setItem"
         localStorage.setItem("ids", idArray);
@@ -226,11 +226,12 @@
          
           var results1 = response.data;
           for (var n = 0; n < 10; n++) {
-            console.log(results1[n]);
+            // console.log(results1[n]);
             var gifDiv1 = $("<div class='item'>");
            // gifDiv1.attr("id",results1[i].id);
 
             var rating1 = results1[n].rating;
+            console.log(rating1);
 
             var p1 = $("<p>").text("Rating: " + rating1);
 
